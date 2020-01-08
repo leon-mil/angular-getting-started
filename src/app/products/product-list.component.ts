@@ -9,6 +9,7 @@ export class ProductListComponent {
     pageTitle = 'Prooduct List';
     imageWidth = 50;
     imageMargin = 2;
+    showImage = false;
     products: any[] =
     [
         {
@@ -61,5 +62,9 @@ export class ProductListComponent {
           starRating: 4.6,
           imageUrl: 'assets/images/xbox-controller.png'
         }
-      ];
+    ];
+
+    toggleImage(): void {
+        this.showImage = !this.showImage;
+    }
 }
