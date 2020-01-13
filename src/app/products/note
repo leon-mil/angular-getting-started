@@ -1,0 +1,15 @@
+1. Angular first initializes the component and executes ngOnInit() method of the product-list.component.ts file.
+2. We call the getProducts() method of the product.service.ts file. This method returns of the Observable<IProduct[]>.
+3. We subsribe to that Observable in ngOnInit() method of the product-list.component.ts file.
+4. HTTP get request is submitted in the getProducts() method of the product.service.ts file. This is asynchronous operation.
+5. this.productService.getProducts().subsribe ({...}) portion of the OnInit() method of the product-list.component.ts file is complete.
+6. We move to the next line of the OnInit method in the product-list.component.ts file. Which is setting our this.filteredProducts.
+   But at this point this.products property is not yet set so our this.filteredProducts will be empty.
+7. At some future point in time, the service receives the HttpResponse from our request in getProducts() .pipe() method of the product.service.ts.
+   The HttpResponse data is mapped to the array of products IProduct[] and the Observable emits this mapped data to any subscribers. 
+8. Our subsriber receives the emitted data in the ngOnInit() method of the product-list.component.ts file. 
+   This is in the "next:" portion of the this.productService.getProducts().subsribe ({...}) method. Than we assign products property to the emitted array of products.
+   But since we are binding to the filteredProducts property, we are not notified that we have a retrieved list of products.
+   We need to move the "this.filteredProducts = this.products" inside the .subsribe function. 
+   That way we won't assign this.filteredProducts until the retrived set of products are emitted from the service. 
+
